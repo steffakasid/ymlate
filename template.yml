@@ -10,7 +10,7 @@ item: {{ . -}}
 {{end}}
 
 {{with .Values.firstObject }}
-wtf: {{ .someString }}
+wtf: {{ helloWorld .someString }}
 {{ range .someList }}
 repeat: {{.}}
 {{end}}

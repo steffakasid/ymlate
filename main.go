@@ -27,12 +27,16 @@ func main() {
 	}
 	fmt.Printf("--- m:\n%v\n\n", values)
 
-	content, err := ioutil.ReadFile("template.yml")
-	if err != nil {
-		panic(err)
-	}
+	myTemplate := template.New("template.yml")
 
-	tmpl, err := template.New("template.yml").Parse(string(content))
+	myTemplate.Funcs(template.FuncMap{
+		"helloWorld": func(feature string) string {
+			return "Hello" + feature
+		},
+	})
+
+	// TODO: ParseFiles for sure can get multiple templatefiles
+	tmpl, err := myTemplate.ParseFiles("template.yml")
 
 	if err != nil {
 		panic(err)
