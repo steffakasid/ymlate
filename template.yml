@@ -1,0 +1,23 @@
+---
+someKey: {{- .Values.firstString}}
+
+{{- /* a comment */}}
+
+{{- if eq .Values.firstString "firstValue"}} 
+T1 
+{{- else}}
+T0 
+{{end -}}
+
+{{- range .Values.firstList }} 
+item: {{ . -}}
+{{end}}
+
+{{- with .Values.firstObject }}
+wtf: {{- helloWorld .someString }}
+{{- range .someList }}
+repeat: {{- . -}}
+{{end}}
+testToYaml:
+{{ indent 2 (toyaml .someObject) }}
+{{end}}
