@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"html/template"
 	"io/ioutil"
 	"os"
@@ -26,7 +25,6 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	fmt.Printf("--- m:\n%v\n\n", values)
 
 	myTemplate := template.New("template.yml")
 
