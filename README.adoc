@@ -1,0 +1,5 @@
+= YMLATE
+
+My Plan is to create a simple tool which can template yaml files in a helm like way. It could be an alternative to e.g. ytt and would make yml templating easier if you already know helm.
+
+Right now this project is still in progress and doesn't offer any cli interface.
