@@ -5,6 +5,7 @@ import (
 	"html/template"
 	"io/ioutil"
 	"os"
+	"strings"
 
 	"gopkg.in/yaml.v2"
 )
@@ -32,6 +33,25 @@ func main() {
 	myTemplate.Funcs(template.FuncMap{
 		"helloWorld": func(feature string) string {
 			return "Hello" + feature
+		},
+		"toyaml": func(yamlObj map[interface{}]interface{}) string {
+			out, err := yaml.Marshal(&yamlObj)
+			if err != nil {
+				panic(err)
+			}
+			return string(out)
+		},
+		"indent": func(indent int, str string) string {
+			var indentBlanks string
+			for i := 0; i < indent; i++ {
+				indentBlanks += " "
+			}
+
+			var returnString string
+			for _, line := range strings.Split(str, "\n") {
+				returnString += indentBlanks + line + "\n"
+			}
+			return returnString
 		},
 	})
 
