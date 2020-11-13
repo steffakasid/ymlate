@@ -59,8 +59,69 @@ var renderCmd = &cobra.Command{
 		myTemplate := template.New(name)
 
 		myTemplate.Funcs(template.FuncMap{
-			"helloWorld": func(feature string) string {
-				return "Hello" + feature
+			"trim": func(p string) string {
+				return strings.TrimSpace(p)
+			},
+			"trimAll": func(c, p string) string {
+				return strings.Trim(p, c)
+			},
+			"trimPrefix": func(prefix, p string) string {
+				return strings.TrimPrefix(p, prefix)
+			},
+			"trimSuffix": func(suffix, p string) string {
+				return strings.TrimSuffix(p, suffix)
+			},
+			"lowwer": func(p string) string {
+				return strings.ToLower(p)
+			},
+			"upper": func(p string) string {
+				return strings.ToUpper()
+			},
+			"title": func(p string) string {
+				return strings.Title(p)
+			},
+			"untitle": func(p string) string {
+				return strings.ToLower(p)
+			},
+			"repeat": func(n int, p string) string {
+				return strings.Repeat(p, n)
+			},
+			"substr": func(start, end int, p string) string {
+				return string(p[start:end])
+			},
+			"nospace": func(p string) string {
+				return strings.ReplaceAll(p, " ", "")
+			},
+			"trunc": func(n int, p string) string {
+				// TODO: implement me
+				return p
+			},
+			"abbrev": func(maxlen int, p string) string {
+				// TODO: implement me
+				return p
+			},
+			"abbrevboth": func(loffset, maxlen int, p string) string {
+				// TODO: implement me
+				return p
+			},
+			"initials": func(p string) string {
+				// TODO: implement me
+				return p
+			},
+			"randAlphaNum": func(len int) string {
+				return ""
+			},
+			"randAlpha": func(len int) string {
+				return ""
+			},
+			"randNummeric": func(len int) string {
+				return ""
+			},
+			"randAscii": func(len int) string {
+				return ""
+			},
+			"wrap": func(col int, p string) string {
+				return p
 			},
 			"toyaml": func(yamlObj map[interface{}]interface{}) string {
 				out, err := yaml.Marshal(&yamlObj)
@@ -81,6 +142,7 @@ var renderCmd = &cobra.Command{
 				}
 				return returnString
 			},
+			"nindent": func() {},
 		})
 
 		// TODO: ParseFiles for sure can get multiple templatefiles
