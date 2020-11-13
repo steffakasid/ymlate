@@ -1,0 +1,21 @@
+---
+firstString:      firstValue
+firstList:
+  - fili1
+  - fili2
+firstObject:
+  someString: Value
+  someList: 
+    - li1
+    - li2
+  someObject:
+    someKey1: value1
+    someKey2: value2
+    aNumber: 3
+    aFloat: 3.5
+    goSomeDeeper:
+      someKey3: value3
+      someKey4: value4
+      list:
+        - item1
+        - item2

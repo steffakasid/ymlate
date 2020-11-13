@@ -1,71 +1,22 @@
+/*
+Copyright © 2020 Steffen Rumpf <ymlate@steffen-rumpf.de>
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
 package main
 
-import (
-	"html/template"
-	"io/ioutil"
-	"os"
-	"strings"
-
-	"gopkg.in/yaml.v2"
-)
-
-type TemplateSettings struct {
-	Values map[string]interface{}
-}
+import "github.com/steffakasid/ymlate/cmd"
 
 func main() {
-	values := map[string]interface{}{}
-
-	yamlFile, err := ioutil.ReadFile("values.yml")
-	if err != nil {
-		panic(err)
-	}
-
-	err = yaml.Unmarshal(yamlFile, &values)
-	if err != nil {
-		panic(err)
-	}
-
-	myTemplate := template.New("template.yml")
-
-	myTemplate.Funcs(template.FuncMap{
-		"helloWorld": func(feature string) string {
-			return "Hello" + feature
-		},
-		"toyaml": func(yamlObj map[interface{}]interface{}) string {
-			out, err := yaml.Marshal(&yamlObj)
-			if err != nil {
-				panic(err)
-			}
-			return string(out)
-		},
-		"indent": func(indent int, str string) string {
-			var indentBlanks string
-			for i := 0; i < indent; i++ {
-				indentBlanks += " "
-			}
-
-			var returnString string
-			for _, line := range strings.Split(str, "\n") {
-				returnString += indentBlanks + line + "\n"
-			}
-			return returnString
-		},
-	})
-
-	// TODO: ParseFiles for sure can get multiple templatefiles
-	tmpl, err := myTemplate.ParseFiles("template.yml")
-
-	if err != nil {
-		panic(err)
-	}
-
-	templateSettings := TemplateSettings{
-		Values: values,
-	}
-
-	err = tmpl.Execute(os.Stdout, templateSettings)
-	if err != nil {
-		panic(err)
-	}
+	cmd.Execute()
 }
