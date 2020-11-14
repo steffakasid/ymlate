@@ -20,3 +20,9 @@ I've integrated link:https://github.com/helm/helm/blob/master/pkg/engine/funcs.g
 ----
 include::./testfiles/template.yml[]
 ----
+
+== TODO
+
+. Add testing
+. Add value file merging
+. Add multiple template files
