@@ -75,7 +75,7 @@ var renderCmd = &cobra.Command{
 				return strings.ToLower(p)
 			},
 			"upper": func(p string) string {
-				return strings.ToUpper()
+				return strings.ToUpper(p)
 			},
 			"title": func(p string) string {
 				return strings.Title(p)
@@ -124,7 +124,7 @@ var renderCmd = &cobra.Command{
 				return p
 			},
 			"toyaml": func(yamlObj map[interface{}]interface{}) string {
-				out, err := yaml.Marshal(&yamlObj)
+				out, err := yaml.Marshal(yamlObj)
 				if err != nil {
 					panic(err)
 				}
@@ -142,7 +142,7 @@ var renderCmd = &cobra.Command{
 				}
 				return returnString
 			},
-			"nindent": func() {},
+			"nindent": func(p string) string { return "not implemented" },
 		})
 
 		// TODO: ParseFiles for sure can get multiple templatefiles
