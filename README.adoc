@@ -1,6 +1,6 @@
 = YMLATE
 
-My Plan is to create a simple tool which can template yaml files in a helm like way. It could be an alternative to e.g. ytt and would make yml templating easier if you already know helm.
+This project enables templating on yaml files in a helm like way. It could be an alternative to e.g. ytt and would make yml templating easier if you already know helm.
 
 == Usage
 
@@ -12,17 +12,7 @@ ymlate --help
 
 == Templating
 
-For Templating currently you can do everything which is possible by link:https://golang.org/pkg/text/template/[go templates].
-
-Additionally until now I implemented the following functions available globally:
-
-=== {{ toyaml <some object> }}
-
-This function just takes the object and marshals it into yaml. The result is then placed as string into the current pipeline. E.g. `{{ toyaml .someObject }}`
-
-=== {{ indent <indent depth> <some string> }}
-
-This will basically indent the given string with the indent depth. E.g. `{{ indent 2 (toyaml .someObject) }}`
+I've integrated link:https://github.com/helm/helm/blob/master/pkg/engine/funcs.go[] therefore nearly everything from helm is now possible to be done within templates. To get details about integrated functions check out link:https://helm.sh/docs/chart_template_guide/function_list/[here].
 
 == Example Template
 

@@ -14,10 +14,10 @@ item: {{ . -}}
 {{end}}
 
 {{- with .Values.firstObject }}
-wtf: {{- helloWorld .someString }}
+wtf: {{- repeat 5 .someString }}
 {{- range .someList }}
 repeat: {{- . -}}
 {{end}}
 testToYaml:
-{{ indent 2 (toyaml .someObject) }}
+{{ toJson .someObject }}
 {{end}}

@@ -19,10 +19,10 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
-	"strings"
 	"text/template"
 
 	"github.com/spf13/cobra"
+	"github.com/steffakasid/ymlate/helm/pkg/engine"
 	"gopkg.in/yaml.v2"
 )
 
@@ -58,92 +58,7 @@ var renderCmd = &cobra.Command{
 		name := path.Base(renderSettings.TemplateFile)
 		myTemplate := template.New(name)
 
-		myTemplate.Funcs(template.FuncMap{
-			"trim": func(p string) string {
-				return strings.TrimSpace(p)
-			},
-			"trimAll": func(c, p string) string {
-				return strings.Trim(p, c)
-			},
-			"trimPrefix": func(prefix, p string) string {
-				return strings.TrimPrefix(p, prefix)
-			},
-			"trimSuffix": func(suffix, p string) string {
-				return strings.TrimSuffix(p, suffix)
-			},
-			"lowwer": func(p string) string {
-				return strings.ToLower(p)
-			},
-			"upper": func(p string) string {
-				return strings.ToUpper(p)
-			},
-			"title": func(p string) string {
-				return strings.Title(p)
-			},
-			"untitle": func(p string) string {
-				return strings.ToLower(p)
-			},
-			"repeat": func(n int, p string) string {
-				return strings.Repeat(p, n)
-			},
-			"substr": func(start, end int, p string) string {
-				return string(p[start:end])
-			},
-			"nospace": func(p string) string {
-				return strings.ReplaceAll(p, " ", "")
-			},
-			"trunc": func(n int, p string) string {
-				// TODO: implement me
-				return p
-			},
-			"abbrev": func(maxlen int, p string) string {
-				// TODO: implement me
-				return p
-			},
-			"abbrevboth": func(loffset, maxlen int, p string) string {
-				// TODO: implement me
-				return p
-			},
-			"initials": func(p string) string {
-				// TODO: implement me
-				return p
-			},
-			"randAlphaNum": func(len int) string {
-				return ""
-			},
-			"randAlpha": func(len int) string {
-				return ""
-			},
-			"randNummeric": func(len int) string {
-				return ""
-			},
-			"randAscii": func(len int) string {
-				return ""
-			},
-			"wrap": func(col int, p string) string {
-				return p
-			},
-			"toyaml": func(yamlObj map[interface{}]interface{}) string {
-				out, err := yaml.Marshal(yamlObj)
-				if err != nil {
-					panic(err)
-				}
-				return string(out)
-			},
-			"indent": func(indent int, str string) string {
-				var indentBlanks string
-				for i := 0; i < indent; i++ {
-					indentBlanks += " "
-				}
-
-				var returnString string
-				for _, line := range strings.Split(str, "\n") {
-					returnString += indentBlanks + line + "\n"
-				}
-				return returnString
-			},
-			"nindent": func(p string) string { return "not implemented" },
-		})
+		myTemplate.Funcs(engine.GetHelmFunction())
 
 		// TODO: ParseFiles for sure can get multiple templatefiles
 		tmpl, err := myTemplate.ParseFiles(renderSettings.TemplateFile)

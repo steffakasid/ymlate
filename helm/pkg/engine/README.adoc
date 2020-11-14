@@ -1,0 +1,1 @@
+This is a workaround as helm.sh/helm/pkg/engine doesn't expose funcMap() function.
