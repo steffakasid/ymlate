@@ -3,13 +3,13 @@ someKey: {{- .Values.firstString}}
 
 {{- /* a comment */}}
 
-{{- if eq .Values.firstString "firstValue"}} 
-T1 
+{{- if eq .Values.firstString "firstValue"}}
+T1
 {{- else}}
-T0 
+T0
 {{end -}}
 
-{{- range .Values.firstList }} 
+{{- range .Values.firstList }}
 item: {{ . -}}
 {{end}}
 
@@ -19,5 +19,5 @@ wtf: {{- repeat 5 .someString }}
 repeat: {{- . -}}
 {{end}}
 testToYaml:
-{{ toJson .someObject }}
+{{ toYaml .someObject.goSomeDeeper.list | indent 2}}
 {{end}}
